@@ -1,4 +1,4 @@
-name: get_daily_data_Bolivia
+name: get_daily_data_Bolivia_2
     
 on:
   workflow_dispatch
