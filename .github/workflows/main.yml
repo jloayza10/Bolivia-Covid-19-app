@@ -1,8 +1,9 @@
 name: get_daily_data_Bolivia
     
 on:
-  schedule:
-    - cron: "0 14 * * *" # UTC time
+  [workflow_dispatch]
+  #schedule:
+    #- cron: "0 14 * * *" # UTC time
     
 jobs:
   build:
