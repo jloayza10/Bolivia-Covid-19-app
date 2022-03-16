@@ -11,10 +11,10 @@ import plotly.graph_objects as go
 
 #locale.setlocale(locale.LC_TIME, 'es_ES')
 
-df = pd.read_pickle(r'..\..\Step_1-Parse\data\df_covid_Bolivia.pickle')
-df_monthly_mean = pd.read_pickle(r'..\..\Step_1-Parse\data\df_monthly_mean.pickle')
-df_weekly_mean = pd.read_pickle(r'..\..\Step_1-Parse\data\df_weekly_mean.pickle')
-Bolivia_deptos = json.load(open("..\..\Step_0-Raw\data\departamentos_Bolivia.geojson", 'r'))
+df = pd.read_pickle(r'./Step_1-Parse/data/df_covid_Bolivia.pickle')
+df_monthly_mean = pd.read_pickle(r'./Step_1-Parse/data/df_monthly_mean.pickle.pickle')
+df_weekly_mean = pd.read_pickle(r'./Step_1-Parse/data/df_weekly_mean.pickle.pickle')
+Bolivia_deptos = json.load(open('./Step_0-Raw/data/departamentos_Bolivia.geojson', 'r'))
 ciudades = ['Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosi', 'Santa Cruz',
             'Tarija', 'Bolivia']
 tipo = ['Positivos', 'Muertes', 'Recuperados',
