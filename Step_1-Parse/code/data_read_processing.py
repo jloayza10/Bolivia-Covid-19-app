@@ -56,7 +56,7 @@ for df, tipo in zip(df_dict.values(), tipos):
 #JSON manipulation for geo data
 deptos_map = {}
 Bolivia_deptos = json.load(open('./Step_0-Raw/data/departamentos_Bolivia.geojson','r'))
-#Bolivia_deptos = json.load(open('./departamentos_Bolivia.geojson','r'))
+
 for feature in Bolivia_deptos['features']:
     deptos_map[feature["properties"]['NOM_DEP'].title()] = feature['id']
 
@@ -109,6 +109,6 @@ included_weekly = df_weekly_mean[~(df_weekly_mean.Ciudad=='Bolivia')]
 df_monthly_mean["id"] = included_monthly["Ciudad"].apply(lambda x: deptos_map[x])
 df_weekly_mean["id"] = included_weekly["Ciudad"].apply(lambda x: deptos_map[x])
 
-df_all.to_pickle('../data/df_covid_Bolivia.pickle',protocol=3)
-df_monthly_mean.to_pickle('../data/df_monthly_mean.pickle',protocol=3)
-df_weekly_mean.to_pickle('../data/df_weekly_mean.pickle',protocol=3)
+df_all.to_pickle('./Step_1-Parse/data/df_covid_Bolivia.pickle',protocol=3)
+df_monthly_mean.to_pickle('./Step_1-Parse/data/df_monthly_mean.pickle',protocol=3)
+df_weekly_mean.to_pickle('./Step_1-Parse/data/df_weekly_mean.pickle',protocol=3)
