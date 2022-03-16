@@ -55,8 +55,8 @@ for df, tipo in zip(df_dict.values(), tipos):
 
 #JSON manipulation for geo data
 deptos_map = {}
-#Bolivia_deptos = json.load(open("./../../Step_0-Raw/data/departamentos_Bolivia.geojson",'r'))
-Bolivia_deptos = json.load(open('./departamentos_Bolivia.geojson','r'))
+Bolivia_deptos = json.load(open('./Step_0-Raw/data/departamentos_Bolivia.geojson','r'))
+#Bolivia_deptos = json.load(open('./departamentos_Bolivia.geojson','r'))
 for feature in Bolivia_deptos['features']:
     deptos_map[feature["properties"]['NOM_DEP'].title()] = feature['id']
 
