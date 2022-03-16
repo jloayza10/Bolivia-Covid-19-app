@@ -9,7 +9,7 @@ import plotly.figure_factory as ff
 import plotly.graph_objects as go
 
 
-locale.setlocale(locale.LC_TIME, 'es_ES')
+#locale.setlocale(locale.LC_TIME, 'es_ES')
 
 df = pd.read_pickle(r'..\..\Step_1-Parse\data\df_covid_Bolivia.pickle')
 df_monthly_mean = pd.read_pickle(r'..\..\Step_1-Parse\data\df_monthly_mean.pickle')
