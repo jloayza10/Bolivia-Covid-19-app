@@ -2,7 +2,7 @@ name: get_daily_data_Bolivia
     
 on:
   schedule:
-    - cron: "0 14 * * *" # UTC time
+    - cron: "0 15-20/5 * * *" # UTC time
     
 jobs:
   build:
@@ -30,7 +30,7 @@ jobs:
           git config --local user.name "Automated"
           git add -A
           timestamp=$(date -u)
-          git commit -m "update data on: ${timestamp}" -a
+          git commit -m "update data on: ${timestamp}" -a --allow-empty
           
       - name: push changes
         uses: ad-m/github-push-action@v0.6.0
