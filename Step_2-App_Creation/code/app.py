@@ -35,7 +35,10 @@ tipo_color_dict = {'Positivos': ['#55BCC9', '#659DBD', '#05386B', '#97CAEF', '#2
                    'Total Positivos': ['#05386B', '#659DBD'],
                    'Total Activos': ['#8E8268', '#8E8268'],
                    'Total Muertes': ['#FC4445', '#474853'],
-                   'Total Recuperados': ['#379683', '#8EE4AF']
+                   'Total Recuperados': ['#379683', '#8EE4AF'],
+		   'Positivos por 100k hab.': ['#55BCC9', '#97CAEF'],
+		   'Muertes por 100k hab.': ['#FC4445', '#FC4445'],
+		   'Recuperados por 100k hab.': ['#AFD275', '#AFD275']
                    }
 
 
@@ -72,24 +75,38 @@ def bar_trace(figure,dataframe,var,ciudad):
                             marker_color="#05386B",
                             )
                      )
+def bar_trace_1(figure,dataframe,var,ciudad):
+    df_not_na = dataframe[dataframe['Total Positivos'].notna()]
+    df_bar = df_not_na[df_not_na['Fecha'] == df_not_na['Fecha'].max()].sort_values(var, ascending=True)
+    figure.add_trace(go.Bar(x=df_bar[df_bar["Ciudad"] == ciudad][var],
+                            y=df_bar[df_bar["Ciudad"] == ciudad].Ciudad,
+                            name=ciudad,
+                            hovertemplate=ciudad + f'<br>{var}:' +' %{x}<extra></extra>',
+                            showlegend=False,
+                            text=df_bar[df_bar["Ciudad"] == ciudad][var],
+                            orientation='h',
+                            marker_color="#05386B",
+                            width=0.3,
+                            )
+                     )
 def update_plot_bar(var):
     fig.update_layout(title=var + ' por departamento seleccionado',
                       title_x=0.5,
                       height=600,
                       width=850,
                       autosize=True,
-                      font={'color': 'white'},
+                      font={'color': 'black'},
                       yaxis={'categoryorder':'total ascending'}
                       )
     fig.update_xaxes(title=var,
              title_standoff=4,
              nticks=10,
              ticks="outside",
-             tickcolor='white',
+             tickcolor='black',
              )
     fig.update_yaxes(title='',
                      ticks="outside",
-                     tickcolor='white',
+                     tickcolor='black',
                      )
 
 def plot_scatter_M_mean(figure,var,ciudad,hover_str):
@@ -110,19 +127,19 @@ def update_plot(hover_str,title_str):
                       height= 600,
                       width=850,
                       autosize=True,
-                      font={'color': 'white'}
+                      font={'color': 'black'}
                       )
     fig.update_xaxes(title="Fecha",
              title_standoff=4,
              tickformat='%m-%Y',
              nticks=10,
              ticks="outside",
-             tickcolor='white',
+             tickcolor='black',
              )
     fig.update_yaxes(title=hover_str,
                      title_standoff=4,
                      ticks="outside",
-                     tickcolor='white',
+                     tickcolor='black',
                      #tick0=0,
                      zeroline=True,
                      rangemode="tozero",
@@ -136,9 +153,9 @@ st.caption(f"Fecha última actualización: {Fecha_max}")
 st.sidebar.title("Selección Visualización")
 st.sidebar.header("Opciones de gráficos")
 
-sidebar_type = st.sidebar.selectbox("Tipo de gráfico: ", graph_types)
+sidebar_type = st.sidebar.selectbox("", graph_types)
 
-if sidebar_type == graph_types[0]:
+if sidebar_type == graph_types[0]: # Tablas de Resumen
     col1, col2 = st.columns(2)
     with col1:
         with st.expander("Escoja los departamentos de interés"):
@@ -195,10 +212,10 @@ if sidebar_type == graph_types[0]:
                 col2.subheader(multi_tipo + f"\n Fecha: {Fecha_max}")
                 st.plotly_chart(fig, use_container_width=True)
 
-if sidebar_type == graph_types[1]:
+if sidebar_type == graph_types[1]: # Gráficos por fecha
     sidebar_plot = st.sidebar.selectbox("Visualización: ",
                                         graph_time_types)
-    if sidebar_plot == graph_time_types[0]:
+    if sidebar_plot == graph_time_types[0]:# Gráficos separados
 
         col1, col2 = st.columns(2)
         with col1:
@@ -239,9 +256,9 @@ if sidebar_type == graph_types[1]:
                           col=(i % 2) + 2 * ((i + 1) % 2)
                           )
             fig.layout.annotations[i - 1]['text'] = ciudad
-            fig.layout.annotations[i - 1]['font'] = {'size': 20, 'color': 'white'}
+            fig.layout.annotations[i - 1]['font'] = {'size': 20, 'color': 'black'}
 
-            if 'Total' not in tipo_selected:
+            if tipo_selected in tipo[:3]:
                 max_tipo_avg7 = df[df["Ciudad"] == ciudad][tipo_selected + '_avg7'].max()
                 fig.add_trace(go.Scatter(x=df[df["Ciudad"] == ciudad].Fecha,
                                          y=df[df["Ciudad"] == ciudad][tipo_selected + '_avg7'],
@@ -285,9 +302,9 @@ if sidebar_type == graph_types[1]:
                     col=(i % 2) + 2 * ((i + 1) % 2),
                     )
 
-                if len(multi_ciudades_0) == 1:
-                    fig.update_xaxes(domain=[0, 1])
-                    fig.layout.annotations[0].update(x=0.5)
+            if len(multi_ciudades_0) == 1:
+                fig.update_xaxes(domain=[0, 1])
+                fig.layout.annotations[0].update(x=0.5)
 
             i = i + 1
         if len(multi_ciudades_0) == 1:
@@ -314,21 +331,21 @@ if sidebar_type == graph_types[1]:
             width=fig_width,
             # autosize=True,
             showlegend=False,
-            font={'color': 'white'}
+            font={'color': 'black'}
             )
         fig.update_xaxes(title="Fecha",
                          title_standoff=4,
                          tickformat='%m-%Y',
                          nticks=10,
                          ticks="outside",
-                         tickcolor='white',
+                         tickcolor='black',
                          )
         fig.update_yaxes(title=tipo_selected,
                          title_standoff=4,
                          )
         st.plotly_chart(fig)
 
-    if sidebar_plot == graph_time_types[1]:
+    if sidebar_plot == graph_time_types[1]: # Gráfico único
         col1, col2 = st.columns(2)
         with col1:
             with st.expander("Escoja los departamentos de interés"):
@@ -393,13 +410,19 @@ if sidebar_type == graph_types[1]:
             st.plotly_chart(fig)
         if 'Total' in tipo_selected:
             fig = go.Figure()
-            for ciudad in multi_ciudades_0:
-                bar_trace(fig,df,tipo_selected,ciudad)
-            update_plot_bar(tipo_selected)
+            if len(multi_ciudades_0) == 1:
+                for ciudad in multi_ciudades_0:
+                    bar_trace_1(fig,df,tipo_selected,ciudad)
+                update_plot_bar(tipo_selected)
+
+            else:
+                for ciudad in multi_ciudades_0:
+                    bar_trace(fig,df,tipo_selected,ciudad)
+                update_plot_bar(tipo_selected)
             st.plotly_chart(fig)
 
 
-if sidebar_type == graph_types[2]:
+if sidebar_type == graph_types[2]: # Mapa
 
     with st.expander("Seleccionar tipo de mapa"):
         map_type = st.selectbox("",map_types)
@@ -413,8 +436,7 @@ if sidebar_type == graph_types[2]:
             with col2:
                 with st.expander("Seleccionar variable de interés"):
                     selectbox_tipos = st.selectbox("", tipo[:3], key=4)
-            title_str="Promedio mensual de " + selectbox_tipos + """ por departamento.<br>Mapa interactivo, el botón \"Play\" inicia
-la animación."""
+            title_str="Promedio mensual de " + selectbox_tipos + """ por departamento.<br>Mapa interactivo, el botón \"Play\" inicia la animación."""
             fig = px.choropleth_mapbox(
                 df_monthly_mean[df_monthly_mean.Ciudad != 'Bolivia'],
                 locations="id",
@@ -449,8 +471,7 @@ la animación."""
             with col2:
                 with st.expander("Seleccionar variable de interés"):
                     selectbox_tipos = st.selectbox("", tipo[:3], key=4)
-            title_str="Promedio semanal de " + selectbox_tipos + """ por departamento.<br>Mapa interactivo, el botón \"Play\" inicia
-la animación."""
+            title_str="Promedio semanal de " + selectbox_tipos + """ por departamento.<br>Mapa interactivo, el botón \"Play\" inicia la animación."""
             fig = px.choropleth_mapbox(
                 df_weekly_mean[df_weekly_mean.Ciudad != 'Bolivia'],
                 locations="id",
