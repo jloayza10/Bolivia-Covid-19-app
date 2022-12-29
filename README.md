@@ -1,9 +1,9 @@
 [![get_daily_data_Bolivia](https://github.com/jloayza10/Bolivia-Covid-19-app/actions/workflows/main.yml/badge.svg)](https://github.com/jloayza10/Bolivia-Covid-19-app/actions/workflows/main.yml)
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://share.streamlit.io/jloayza10/bolivia-covid-19-app/main/Step_2-App_Creation/code/app.py)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://covid19-bolivia.streamlit.app/)
 
 # Covid-19 Bolivia App
 
-This [Streamlit App](https://share.streamlit.io/jloayza10/bolivia-covid-19-app/main/Step_2-App_Creation/code/app.py) 
+This [Streamlit App](https://covid19-bolivia.streamlit.app/) 
 presents Bolivia's Covid-19 data through several visualizations and formats.
 
 
