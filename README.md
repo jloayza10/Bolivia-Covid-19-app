@@ -1,4 +1,4 @@
-[![get_daily_data_Bolivia](https://github.com/jloayza10/Bolivia-Covid-19-app/actions/workflows/main.yml/badge.svg)](https://github.com/jloayza10/Bolivia-Covid-19-app/actions/workflows/main.yml)
+[![Update daily data](https://github.com/jloayza10/Bolivia-Covid-19-app/actions/workflows/update_looker.yml/badge.svg)](https://github.com/jloayza10/Bolivia-Covid-19-app/actions/workflows/main.yml)
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://covid19-bolivia.streamlit.app/)
 
 # Covid-19 Bolivia App
@@ -15,7 +15,7 @@ Possible visualizations are:
 - Time-series plots
 - Maps with information by department
 Depending on the visualization chosen, daily, weekly, bi-weekly and monthly averages are possible. Also, some animations by date are presented.
-The data is provided by the [Bolivian government](https://www.udape.gob.bo/index.php?option=com_wrapper&view=wrapper&Itemid=104) and is scraped daily by [M. Foronda](https://github.com/sociedatos/covid19-bo-casos_por_departamento). This data is in no case the real data and in fact is surely undercounted.
+The data is provided by the [Bolivian government](https://lookerstudio.google.com/u/0/reporting/92796894-acf3-4ab7-9395-20655de351f7/page/p_3ga366rsuc) and is scraped daily. The scraping method and code is inspired by [M. Foronda](https://github.com/sociedatos/covid19-bo-casos_por_departamento). This data is in no case the real data and in fact is surely undercounted.
 
 All work was done in Python.
 ## Lessons Learned
