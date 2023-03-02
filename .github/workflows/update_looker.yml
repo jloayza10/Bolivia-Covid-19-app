@@ -1,0 +1,39 @@
+name: Update
+on:
+  schedule:
+    - cron: '0 16-22/6 * * *'
+  workflow_dispatch:
+jobs:
+  update:
+    name: check, update and commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@master
+      - name: setup python
+        uses: actions/setup-python@v1
+        with:
+          python-version: '3.7'
+      - name: setup python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r update/requirements.txt
+      - name: run update script
+        id: update-script
+        run: |
+          echo ::set-output name=result::$(python update/update_datastudio.py)
+      - name: git status
+        id: git-status
+        run: |
+          git config --local user.email "actions@users.noreply.github.com"
+          git config --local user.name "Automated"
+          echo ::set-output name=result::$(git status | tr -d "\n" | grep -c "nothing to commit")
+      - name: commit
+        if: steps.git-status.outputs.result == 0
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DATE: ${{ steps.update-script.outputs.result }}
+        run: |
+          git add -A
+          git commit -m "[ci] $DATE"
+          git push -q "https://$GH_TOKEN@github.com/jloayza10/Bolivia-Covid-19-app.git" master
