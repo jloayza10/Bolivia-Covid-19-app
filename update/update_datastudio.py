@@ -115,7 +115,7 @@ def save(table, query):
         old_table= pd.read_csv(f'Step_1-Parse/data/{query}.csv', parse_dates=[0], index_col=0)
         newlines = table.loc[old_table.index.max() + dt.timedelta(days=1):]
         table = pd.concat([old_table, newlines])
-    table.to_csv('{}.csv'.format(query))
+    table.to_csv(f'Step_1-Parse/data/{query}.csv')
 
 def update_dataset(query):
     """
