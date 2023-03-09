@@ -37,7 +37,7 @@ tipo_color_dict = {'Positivos': ['#55BCC9', '#659DBD', '#05386B', '#97CAEF', '#2
                    'Total Muertes': ['#FC4445', '#474853'],
                    'Total Recuperados': ['#379683', '#8EE4AF'],
                    'Positivos por 100k hab.': ['#55BCC9', '#97CAEF'],
-                   'Muertes por 100k hab.': ['#FC4445', '#FC4445'],
+                   'Muertes por 100k hab.': ['#515557', '#515557'],
                    'Recuperados por 100k hab.': ['#AFD275', '#AFD275']
                    }
 

@@ -4,16 +4,14 @@ import json
 from functools import reduce
 
 
-# Strings needed to read github data
-url_names = ["confirmados_diarios.csv","decesos_diarios.csv",
+# Strings needed to read data
+csv_names = ["confirmados_diarios.csv","decesos_diarios.csv",
              "recuperados_diarios.csv","confirmados_acumulados.csv",
              "activos_acumulados.csv","decesos_acumulados.csv",
              "recuperados_acumulados.csv"]
-url_base = "https://raw.githubusercontent.com/sociedatos/covid19-bo-casos_por_departamento/master/"
-df_names = ["df_daily_pos","df_daily_deaths","df_daily_recup","df_acc_pos",
-            "df_acc_act","df_acc_deaths","df_acc_recup"]
-ciudades = ['Chuquisaca','La Paz','Cochabamba','Oruro','Potosi','Tarija',
-            'Santa Cruz','Beni','Pando', 'Bolivia']
+#url_base = "https://raw.githubusercontent.com/sociedatos/covid19-bo-casos_por_departamento/master/"
+df_names = ["df_daily_pos","df_daily_deaths","df_daily_recup","df_acc_pos","df_acc_act","df_acc_deaths","df_acc_recup"]
+ciudades = ['Chuquisaca','La Paz','Cochabamba','Oruro','Potosi','Tarija','Santa Cruz','Beni','Pando', 'Bolivia']
 df_dict = {}
 tipos = ['Positivos', 'Muertes', 'Recuperados','Total Positivos','Total Activos',
                         'Total Muertes','Total Recuperados']
@@ -21,11 +19,11 @@ data_poblacion = {'Ciudad':['Chuquisaca','La Paz','Cochabamba','Oruro','Potosi',
                             'Tarija','Santa Cruz','Beni','Pando', 'Bolivia'],
                   'Poblacion':[654000, 3023800, 2086900, 548500, 907700, 591800, 3363400, 507100,
                      158700, 11842000]}
-df_poblacion = pd.DataFrame(data_poblacion) # country and departamento population
+df_poblacion = pd.DataFrame(data_poblacion) # country and departamento population in 2022
 
-# Func to read the data
-def read_github_csv(url,name):
-    df_dict[name] = pd.read_csv(url_base + url,
+# Function to read the data
+def read_data(csv,name):
+    df_dict[name] = pd.read_csv('./Step_1-Parse/data/'+csv,
                                 names=('Fecha','Chuquisaca','La Paz','Cochabamba',
                                'Oruro','Potosi','Tarija','Santa Cruz','Beni',
                                'Pando'),
@@ -43,8 +41,8 @@ def col_per_100k(df,col_name):
     df[col_name+' por 100k hab.']= (df[col_name+'_avg14']*100000) / df['Poblacion']
 
 # read and create a dict of dataframes for each url
-for url, name in zip(url_names,df_names):
-    read_github_csv(url,name)
+for csv, name in zip(csv_names,df_names):
+    read_data(csv,name)
 # create new col for the whole country for each df
 for df in df_dict.values():
     df["Bolivia"]=df.iloc[:, -9:].sum(axis=1)
@@ -69,6 +67,7 @@ excluded = df_covid_Bolivia[condition]
 included = df_covid_Bolivia[~condition]
 sorted1 = included.sort_values(['Fecha','Ciudad'], ascending=True)
 df_covid_Bolivia = pd.concat([sorted1,excluded])
+
 # provide total population for each city
 df_covid_Bolivia = pd.merge(df_covid_Bolivia,
                             df_poblacion,
@@ -108,6 +107,7 @@ included_weekly = df_weekly_mean[~(df_weekly_mean.Ciudad=='Bolivia')]
 df_monthly_mean["id"] = included_monthly["Ciudad"].apply(lambda x: deptos_map[x])
 df_weekly_mean["id"] = included_weekly["Ciudad"].apply(lambda x: deptos_map[x])
 
+#Save data in pickle format
 df_all.to_pickle('./Step_1-Parse/data/df_covid_Bolivia.pickle',protocol=3)
 df_monthly_mean.to_pickle('./Step_1-Parse/data/df_monthly_mean.pickle',protocol=3)
 df_weekly_mean.to_pickle('./Step_1-Parse/data/df_weekly_mean.pickle',protocol=3)
