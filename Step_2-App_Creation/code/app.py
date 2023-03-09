@@ -22,8 +22,8 @@ tipo = ['Positivos', 'Muertes', 'Recuperados',
         'Positivos por 100k hab.', 'Muertes por 100k hab.', 'Recuperados por 100k hab.']  # 'Total Activos',
 tiempo = ['Por mes', 'Por semana', 'Últimos 15 días']
 promedios = ['Diario', '7 días', '14 días', 'Por mes']
-graph_types = ['Tablas de Resumen', 'Gráficos por fecha', 'Mapa']
-graph_time_types = ['Gráficos separados', 'Gráfico único']
+graph_types = ['Cuadros de Resumen', 'Gráficos por fecha', 'Mapa']
+graph_time_types = ['Gráficos individuales', 'Un solo gráfico']
 map_types = [ 'Por Fecha', 'Mapa actual']
 
 mapbox_styles = ["open-street-map", "carto-positron", "carto-darkmatter", "stamen-terrain",
@@ -36,9 +36,9 @@ tipo_color_dict = {'Positivos': ['#55BCC9', '#659DBD', '#05386B', '#97CAEF', '#2
                    'Total Activos': ['#8E8268', '#8E8268'],
                    'Total Muertes': ['#FC4445', '#474853'],
                    'Total Recuperados': ['#379683', '#8EE4AF'],
-		   'Positivos por 100k hab.': ['#55BCC9', '#97CAEF'],
-		   'Muertes por 100k hab.': ['#FC4445', '#FC4445'],
-		   'Recuperados por 100k hab.': ['#AFD275', '#AFD275']
+                   'Positivos por 100k hab.': ['#55BCC9', '#97CAEF'],
+                   'Muertes por 100k hab.': ['#FC4445', '#FC4445'],
+                   'Recuperados por 100k hab.': ['#AFD275', '#AFD275']
                    }
 
 
@@ -148,17 +148,18 @@ Fecha_max = df['Fecha'].max().strftime('%d-%m-%Y')
 
 
 st.set_page_config(page_title="Covid-19 Bolivia Dashboard",layout='wide')
-st.title("Visualización Covid-19 en Bolivia")
-st.caption(f"Fecha última actualización: {Fecha_max}")
-st.sidebar.title("Selección Visualización")
-st.sidebar.header("Opciones de gráficos")
+#st.title("Visualización Covid-19 en Bolivia")
+st.markdown("<h1 style='text-align: center; color: black;'>Visualización Covid-19 en Bolivia</h1>", unsafe_allow_html=True)
+st.caption(f"Fecha de la última actualización de datos: {Fecha_max}")
+st.sidebar.title("Opciones de visualizaciones")
+#st.sidebar.header("Opciones de gráficos")
 
 sidebar_type = st.sidebar.selectbox("", graph_types)
 
 if sidebar_type == graph_types[0]: # Tablas de Resumen
     col1, col2 = st.columns(2)
     with col1:
-        with st.expander("Escoja los departamentos de interés"):
+        with st.expander("Click para escoger los departamentos"):
             container0 = st.container()
             all_ciudades_0 = st.checkbox("Seleccionar todo", key=1)
             if all_ciudades_0:
@@ -171,7 +172,7 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
                                                           default='Bolivia')
 
     with col2:
-        with st.expander("Escoja las variables de interés"):
+        with st.expander("Escoja las variables"):
 
             container_1 = st.container()
             all_tipos_1 = st.checkbox("Seleccionar todo", key=2)
@@ -213,13 +214,13 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
                 st.plotly_chart(fig, use_container_width=True)
 
 if sidebar_type == graph_types[1]: # Gráficos por fecha
-    sidebar_plot = st.sidebar.selectbox("Visualización: ",
+    sidebar_plot = st.sidebar.selectbox("Cómo ver los gráficos",
                                         graph_time_types)
     if sidebar_plot == graph_time_types[0]:# Gráficos separados
 
         col1, col2 = st.columns(2)
         with col1:
-            with st.expander("Escoja los departamentos de interés"):
+            with st.expander("Click para escoger los departamentos"):
                 container0 = st.container()
                 all_ciudades_0 = st.checkbox("Seleccionar todo", key=1)
                 if all_ciudades_0:
@@ -232,7 +233,7 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
                                                               default='Bolivia')
 
         with col2:
-            with st.expander("Escoja el dato de interés"):
+            with st.expander("Click para escoger la variable"):
                 tipo_selected = st.selectbox("",tipo)
         fig = make_subplots(rows=(len(multi_ciudades_0) // 2 + (len(multi_ciudades_0) % 2 > 0)),
                             cols=2,
@@ -348,7 +349,7 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
     if sidebar_plot == graph_time_types[1]: # Gráfico único
         col1, col2 = st.columns(2)
         with col1:
-            with st.expander("Escoja los departamentos de interés"):
+            with st.expander("Click para escoger los departamentos"):
                 container0 = st.container()
                 all_ciudades_0 = st.checkbox("Seleccionar todo", key=1)
                 if all_ciudades_0:
@@ -361,12 +362,12 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
                                                               default='Bolivia')
 
         with col2:
-            with st.expander("Escoja el dato de interés"):
+            with st.expander("Click para escoger la variable"):
                 tipo_selected = st.selectbox("",tipo,index=3)
         # if tipo_selected in np.array(tipo)[np.r_[0:3, 6:9]]:
         if tipo_selected in tipo[:3]:
             with col2:
-                with st.expander("Escoja el promedio"):
+                with st.expander("Click para escoger promedio"):
                     promedio_selected = st.selectbox("",promedios)
             fig = go.Figure()
             df_plot = None
@@ -429,12 +430,12 @@ if sidebar_type == graph_types[2]: # Mapa
     col1, col2 = st.columns(2)
     if map_type == map_types[0]:
         with col1:
-            with st.expander("Seleccionar periodo temporal"):
+            with st.expander("Seleccionar período temporal"):
                 selectbox_tiempo = st.selectbox("", tiempo, key=3)
 
         if selectbox_tiempo == 'Por mes':
             with col2:
-                with st.expander("Seleccionar variable de interés"):
+                with st.expander("Seleccionar variable"):
                     selectbox_tipos = st.selectbox("", tipo[:3], key=4)
             title_str="Promedio mensual de " + selectbox_tipos + """ por departamento.<br>Mapa interactivo, el botón \"Play\" inicia la animación."""
             fig = px.choropleth_mapbox(
@@ -469,7 +470,7 @@ if sidebar_type == graph_types[2]: # Mapa
 
         if selectbox_tiempo == 'Por semana':
             with col2:
-                with st.expander("Seleccionar variable de interés"):
+                with st.expander("Seleccionar variable"):
                     selectbox_tipos = st.selectbox("", tipo[:3], key=4)
             title_str="Promedio semanal de " + selectbox_tipos + """ por departamento.<br>Mapa interactivo, el botón \"Play\" inicia la animación."""
             fig = px.choropleth_mapbox(
@@ -503,7 +504,7 @@ if sidebar_type == graph_types[2]: # Mapa
             st.plotly_chart(fig)
         if selectbox_tiempo == 'Últimos 15 días':
             with col2:
-                with st.expander("Seleccionar variable de interés"):
+                with st.expander("Seleccionar variable"):
                     selectbox_tipos = st.selectbox("", tipo, key=2)
             title_str="Evolución de " + selectbox_tipos + " en los últimos 15 días."
             fig = px.choropleth(
@@ -544,7 +545,7 @@ if sidebar_type == graph_types[2]: # Mapa
 
     if map_type == map_types[1]:
         with col1:
-            with st.expander("Seleccionar variable de interés"):
+            with st.expander("Seleccionar variable"):
                 selectbox_tipos = st.selectbox("", tipo, key=1)
         fig = px.choropleth_mapbox(
             df[(df['Fecha'] == df['Fecha'].max()) & (df.Ciudad != 'Bolivia')],
@@ -608,10 +609,7 @@ p {
   </a></p>
   <p>Datos: 
  <a style='display: inline-block; text-align: center;'
-  href="https://github.com/sociedatos/covid19-bo-casos_por_departamento" target="_blank">M. Foronda 
- </a>,
- <a style='display: inline-block; text-align: center;'
-  href="https://www.udape.gob.bo/index.php?option=com_wrapper&view=wrapper&Itemid=104" 
+  href="https://lookerstudio.google.com/u/0/reporting/92796894-acf3-4ab7-9395-20655de351f7/page/p_3ga366rsuc" 
   target="_blank">Gobierno Boliviano
  </a>.
   
