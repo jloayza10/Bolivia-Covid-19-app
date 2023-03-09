@@ -172,7 +172,7 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
                                                           default='Bolivia')
 
     with col2:
-        with st.expander("Escoja las variables"):
+        with st.expander("Click para escoger las variables"):
 
             container_1 = st.container()
             all_tipos_1 = st.checkbox("Seleccionar todo", key=2)
@@ -216,7 +216,7 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
 if sidebar_type == graph_types[1]: # Gráficos por fecha
     sidebar_plot = st.sidebar.selectbox("Cómo ver los gráficos",
                                         graph_time_types)
-    if sidebar_plot == graph_time_types[0]:# Gráficos separados
+    if sidebar_plot == graph_time_types[0]:# Gráficos individuales
 
         col1, col2 = st.columns(2)
         with col1:
@@ -314,16 +314,16 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
             titlex = 0.5
         elif len(multi_ciudades_0) <= 4:
             fig_height = 600
-            fig_width = 950
+            fig_width = 1150
             titlex = 0.5
 
         elif len(multi_ciudades_0) <= 8:
             fig_height = 730
-            fig_width = 950
+            fig_width = 1150
             titlex = 0.5
         else:
             fig_height = 1000
-            fig_width = 950
+            fig_width = 1150
             titlex = 0.5
         fig.update_layout(
             title=tipo_selected + """ por departamento<br>Colocar el mouse sobre cada gráfico para obtener info. adicional.""",
