@@ -4,7 +4,7 @@ on:
   #workflow_dispatch:
   #schedule:
     #- cron: "0 14 * * *" # UTC time
-  pull_request:
+  push
 jobs:
     build:
       runs-on: ubuntu-latest
