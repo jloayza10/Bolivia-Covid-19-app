@@ -13,7 +13,7 @@ _ = gettext.gettext
 
 
 st.set_page_config(page_title="Covid-19 Bolivia Dashboard",layout='wide')
-locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
+#locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 
 
 language = st.sidebar.selectbox('Escoger idioma / Select language', ['Español','English'])
