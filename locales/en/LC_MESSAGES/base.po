@@ -1,0 +1,290 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2023-03-16 11:11-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=cp1252\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+#: Step_2-App_Creation/code/app.py:43
+msgid "Total Activos"
+msgstr "Total Active Cases"
+
+#: Step_2-App_Creation/code/app.py:47
+msgid "Muertes"
+msgstr "Deaths"
+
+#: Step_2-App_Creation/code/app.py:47
+msgid "Positivos"
+msgstr "Confirmed Cases"
+
+#: Step_2-App_Creation/code/app.py:47
+msgid "Recuperados"
+msgstr "Recovered"
+
+#: Step_2-App_Creation/code/app.py:47
+msgid "Total Muertes"
+msgstr "Total Deaths"
+
+#: Step_2-App_Creation/code/app.py:47
+msgid "Total Positivos"
+msgstr "Total Confirmed Cases"
+
+#: Step_2-App_Creation/code/app.py:47
+msgid "Total Recuperados"
+msgstr "Total Recovered"
+
+#: Step_2-App_Creation/code/app.py:48
+msgid "Muertes por 100k hab."
+msgstr "Deaths per 100k people"
+
+#: Step_2-App_Creation/code/app.py:48
+msgid "Positivos por 100k hab."
+msgstr "Confirmed cases per 100k people"
+
+#: Step_2-App_Creation/code/app.py:48
+msgid "Recuperados por 100k hab."
+msgstr "Recovered per 100k people"
+
+#: Step_2-App_Creation/code/app.py:50 Step_2-App_Creation/code/app.py:57
+#: Step_2-App_Creation/code/app.py:493
+msgid "Por mes"
+msgstr "Monthly"
+
+#: Step_2-App_Creation/code/app.py:51 Step_2-App_Creation/code/app.py:529
+msgid "Por semana"
+msgstr "Weekly"
+
+#: Step_2-App_Creation/code/app.py:52 Step_2-App_Creation/code/app.py:566
+msgid "\332ltimos 15 d\355as"
+msgstr "Last 15 days"
+
+#: Step_2-App_Creation/code/app.py:54
+msgid "Diario"
+msgstr "Daily"
+
+#: Step_2-App_Creation/code/app.py:55
+msgid "7 d\355as"
+msgstr "7-day"
+
+#: Step_2-App_Creation/code/app.py:56
+msgid "14 d\355as"
+msgstr "14-day"
+
+#: Step_2-App_Creation/code/app.py:59
+msgid "Cuadros de Resumen"
+msgstr "Data Tables"
+
+#: Step_2-App_Creation/code/app.py:60
+msgid "Gr\341ficos por fecha"
+msgstr "Time Charts"
+
+#: Step_2-App_Creation/code/app.py:61
+msgid "Mapa"
+msgstr "Map"
+
+#: Step_2-App_Creation/code/app.py:63
+msgid "Gr\341ficos individuales"
+msgstr "Individual Charts"
+
+#: Step_2-App_Creation/code/app.py:64
+msgid "Todo en un solo gr\341fico"
+msgstr "All-in-one Chart"
+
+#: Step_2-App_Creation/code/app.py:66
+msgid "Por Fecha"
+msgstr "By Date"
+
+#: Step_2-App_Creation/code/app.py:67
+msgid "Mapa actual"
+msgstr "Today's Map"
+
+#: Step_2-App_Creation/code/app.py:103 Step_2-App_Creation/code/app.py:311
+msgid "<br>Fecha: %{x:%d}<br>"
+msgstr "<br>Date: %{x:%d}<br>"
+
+#: Step_2-App_Creation/code/app.py:140
+msgid " por departamento seleccionado"
+msgstr " by selected departments"
+
+#: Step_2-App_Creation/code/app.py:179 Step_2-App_Creation/code/app.py:258
+#: Step_2-App_Creation/code/app.py:273 Step_2-App_Creation/code/app.py:393
+msgid "Fecha"
+msgstr "Date"
+
+#: Step_2-App_Creation/code/app.py:198
+msgid "<h1 style='text-align: center; color: black;'>Visualizaci\363n Covid-19 en Bolivia</h1>"
+msgstr "<h1 style='text-align: center; color: black;'>Covid-19 Dashboard for Bolivia</h1>"
+
+#: Step_2-App_Creation/code/app.py:199
+msgid "Fecha de la \372ltima actualizaci\363n de datos: {Fecha_max}"
+msgstr "Last update: {Fecha_max}"
+
+#: Step_2-App_Creation/code/app.py:200
+msgid "Opciones de visualizaciones"
+msgstr "How to see the data"
+
+#: Step_2-App_Creation/code/app.py:208 Step_2-App_Creation/code/app.py:284
+#: Step_2-App_Creation/code/app.py:408
+msgid "Click para escoger los departamentos"
+msgstr "Click to select departments"
+
+#: Step_2-App_Creation/code/app.py:210 Step_2-App_Creation/code/app.py:224
+#: Step_2-App_Creation/code/app.py:286 Step_2-App_Creation/code/app.py:410
+msgid "Seleccionar todo"
+msgstr "Select all"
+
+#: Step_2-App_Creation/code/app.py:221
+msgid "Click para escoger las variables"
+msgstr "Click to select metric"
+
+#: Step_2-App_Creation/code/app.py:250 Step_2-App_Creation/code/app.py:264
+msgid " por 100k hab."
+msgstr " per 100k people"
+
+#: Step_2-App_Creation/code/app.py:252 Step_2-App_Creation/code/app.py:267
+msgid "Departamento"
+msgstr "Department"
+
+#: Step_2-App_Creation/code/app.py:253 Step_2-App_Creation/code/app.py:268
+msgid "<br>de la fecha"
+msgstr "<br> for given date"
+
+#: Step_2-App_Creation/code/app.py:255 Step_2-App_Creation/code/app.py:270
+msgid "Por 100k hab.<br>media 14 d\355as"
+msgstr "Per 100k people<br>14-day avg."
+
+#: Step_2-App_Creation/code/app.py:278
+msgid "C\363mo ver los gr\341ficos"
+msgstr "Chart Options"
+
+#: Step_2-App_Creation/code/app.py:297 Step_2-App_Creation/code/app.py:421
+msgid "Click para escoger la variable"
+msgstr "Click to select metric"
+
+#: Step_2-App_Creation/code/app.py:329
+msgid "<br>Fecha: %{x:%d-%m-%Y}<br>"
+msgstr "<br>Date: %{x:%d-%m-%Y}<br>"
+
+#: Step_2-App_Creation/code/app.py:330
+msgid "Promedio {}: "
+msgstr "Average {}: "
+
+#: Step_2-App_Creation/code/app.py:349
+msgid "<br>Promedio<br>7 d\355as"
+msgstr "<br>7-day<br>average"
+
+#: Step_2-App_Creation/code/app.py:385
+msgid " por departamento<br>Colocar el mouse sobre cada gr\341fico para obtener info. adicional."
+msgstr " for each departament.<br>Move mouse cursor over each chart to get additional info"
+
+#: Step_2-App_Creation/code/app.py:427
+msgid "Click para escoger promedio"
+msgstr "Click to select average"
+
+#: Step_2-App_Creation/code/app.py:434
+msgid "Datos diarios de "
+msgstr "Daily data for "
+
+#: Step_2-App_Creation/code/app.py:439
+msgid "Promedio 7 d\355as de "
+msgstr "7-day average for "
+
+#: Step_2-App_Creation/code/app.py:440
+msgid "<br>Promedio m\363vil 7 d\355as"
+msgstr "<br>7-day rolling average"
+
+#: Step_2-App_Creation/code/app.py:444
+msgid "Promedio 14 d\355as de "
+msgstr "14-day average for "
+
+#: Step_2-App_Creation/code/app.py:445
+msgid "<br>Promedio m\363vil 14 d\355as"
+msgstr "<br>14-day rolling average"
+
+#: Step_2-App_Creation/code/app.py:447 Step_2-App_Creation/code/app.py:497
+msgid "Promedio mensual de "
+msgstr "Monthly average for "
+
+#: Step_2-App_Creation/code/app.py:448
+msgid "<br>Promedio mensual"
+msgstr "<br>Monthly average"
+
+#: Step_2-App_Creation/code/app.py:465
+msgid "<br>(Promedio 14 d\355as)"
+msgstr "<br> (14-day average)"
+
+#: Step_2-App_Creation/code/app.py:485
+msgid "Seleccionar tipo de mapa"
+msgstr "Select map type"
+
+#: Step_2-App_Creation/code/app.py:490
+msgid "Seleccionar per\355odo temporal"
+msgstr "Select time range"
+
+#: Step_2-App_Creation/code/app.py:495 Step_2-App_Creation/code/app.py:531
+#: Step_2-App_Creation/code/app.py:568 Step_2-App_Creation/code/app.py:611
+msgid "Seleccionar variable"
+msgstr "Select metric"
+
+#: Step_2-App_Creation/code/app.py:497 Step_2-App_Creation/code/app.py:533
+msgid " por departamento.<br>Mapa interactivo, el bot\363n \"Play\" inicia la animaci\363n."
+msgstr " for each department.<br>Interactive map, click \"Play\" button for animation"
+
+#: Step_2-App_Creation/code/app.py:517
+msgid "<b>%{hovertext}</b><br>Mes: %{customdata[0]}<br>Positivos: %{z:.1f}<br>Muertes: %{customdata[2]:.1f}<br>Recuperados: %{customdata[3]:.1f}"
+msgstr "<b>%{hovertext}</b><br>Month: %{customdata[0]}<br>Confirmed Cases: %{z:.1f}<br>Deaths: %{customdata[2]:.1f}<br>Recovered: %{customdata[3]:.1f}"
+
+#: Step_2-App_Creation/code/app.py:520
+msgid "<b>%{hovertext}</b><br>Mes: %{customdata[0]} <br>Positivos: %{z:.1f}<br>Muertes: %{customdata[2]:.1f}<br>Recuperados: %{customdata[3]:.1f}"
+msgstr "<b>%{hovertext}</b><br>Month: %{customdata[0]} <br>Confirmed Cases: %{z:.1f}<br>Deaths: %{customdata[2]:.1f}<br>Recovered: %{customdata[3]:.1f}"
+
+#: Step_2-App_Creation/code/app.py:521
+msgid "Mes: "
+msgstr "Month: "
+
+#: Step_2-App_Creation/code/app.py:533
+msgid "Promedio semanal de "
+msgstr "Weekly average"
+
+#: Step_2-App_Creation/code/app.py:553
+msgid "<b>%{hovertext}</b><br>Semana: %{customdata[0]}<br>Positivos: %{z:.1f}<br>Muertes: %{customdata[2]:.1f}<br>Recuperados: %{customdata[3]:.1f}"
+msgstr "<b>%{hovertext}</b><br>Week: %{customdata[0]}<br>Confirmed Cases: %{z:.1f}<br>Deaths: %{customdata[2]:.1f}<br>Recovered: %{customdata[3]:.1f}"
+
+#: Step_2-App_Creation/code/app.py:556
+msgid "<b>%{hovertext}</b><br>Semana: %{customdata[0]} <br>Positivos: %{z:.1f}<br>Muertes: %{customdata[2]:.1f}<br>Recuperados: %{customdata[3]:.1f}"
+msgstr "<b>%{hovertext}</b><br>Week: %{customdata[0]} <br>Confirmed Cases: %{z:.1f}<br>Deaths: %{customdata[2]:.1f}<br>Recovered: %{customdata[3]:.1f}"
+
+#: Step_2-App_Creation/code/app.py:557
+msgid "Semana: "
+msgstr "Week: "
+
+#: Step_2-App_Creation/code/app.py:572
+msgid " en los \372ltimos 15 d\355as."
+msgstr " for the last 15 days"
+
+#: Step_2-App_Creation/code/app.py:572
+msgid "Evoluci\363n de "
+msgstr "Trend for "
+
+#: Step_2-App_Creation/code/app.py:601
+msgid "Fecha: "
+msgstr "Date: "
+
+#: Step_2-App_Creation/code/app.py:624
+msgid " por departamento.<br>Colocar el mouse sobre cada departamento<br>para obtener info. adicional."
+msgstr " for each departament.<br>Move mouse cursor over map to get additional info"
+
+#: Step_2-App_Creation/code/app.py:632
+msgid "<b>%{hovertext}</b><br>Fecha: %{customdata[0]}<br>Positivos: %{customdata[1]}<br>Muertes: %{customdata[2]}<br>Recuperados: %{customdata[3]}<br>Total Positivos: %{customdata[4]}<br>Total Muertes: %{customdata[5]}<br>Total Recuperados: %{customdata[6]}<br>Positivos por 100k hab. : %{customdata[7]:.2f}<br>Muertes por 100k hab. : %{customdata[8]:.2f}<br>Recuperados por 100k hab. : %{customdata[9]:.2f}"
+msgstr "<b>%{hovertext}</b><br>Date: %{customdata[0]}<br>Confirmed Cases: %{customdata[1]}<br>Deaths: %{customdata[2]}<br>Recovered: %{customdata[3]}<br>Total Confirmed Cases: %{customdata[4]}<br>Total Deaths: %{customdata[5]}<br>Total Recovered: %{customdata[6]}<br>Confirmed per 100k people : %{customdata[7]:.2f}<br>Deaths per 100k people : %{customdata[8]:.2f}<br>Recovered per 100k people : %{customdata[9]:.2f}"
+
