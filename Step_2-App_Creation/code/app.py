@@ -296,111 +296,115 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
         with col2:
             with st.expander(_("Click para escoger la variable")):
                 tipo_selected = st.selectbox("",tipo_translated)
-        fig = make_subplots(rows=(len(multi_ciudades_0) // 2 + (len(multi_ciudades_0) % 2 > 0)),
-                            cols=2,
-                            subplot_titles=['temp_subtitle' for ciudad in np.arange(len(multi_ciudades_0))],
-                            print_grid=True,
-                            )
-        i = 1
-
-        for ciudad in multi_ciudades_0:
-
-            fig.add_trace(go.Bar(x=df[df["Ciudad"] == ciudad].Fecha,
-                                 y=df[df["Ciudad"] == ciudad][tipo_original[tipo_translated.index(tipo_selected)]],
-                                 name=ciudad,
-                                 hovertemplate=ciudad + _('<br>Fecha: %{x:%d}<br>') +
-                                               f'{tipo_translated[tipo_translated.index(tipo_selected)]}: ' +
-                                               '%{y:.1f}<extra></extra>',
-                                 showlegend=True,
-                                 marker_color=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][0],
-                                 ),
-                          row=(i // 2 + (i % 2 > 0)),
-                          col=(i % 2) + 2 * ((i + 1) % 2)
-                          )
-            fig.layout.annotations[i - 1]['text'] = ciudad
-            fig.layout.annotations[i - 1]['font'] = {'size': 20, 'color': 'black'}
-            if [tipo_translated[tipo_translated.index(tipo_selected)]][0] in tipo_translated[:3]:
-                max_tipo_avg7 = df[df["Ciudad"] == ciudad][tipo_original[tipo_translated.index(tipo_selected)]+ '_avg7'].max()
-                fig.add_trace(go.Scatter(x=df[df["Ciudad"] == ciudad].Fecha,
-                                         y=df[df["Ciudad"] == ciudad][tipo_original[tipo_translated.index(tipo_selected)] + '_avg7'],
-                                         mode='lines',
-                                         name=ciudad,
-                                         fill='tozeroy',
-                                         hovertemplate=ciudad + _('<br>Fecha: %{x:%d-%m-%Y}<br>') +
-                                                       _('Promedio {}: ').format(tipo_translated.index(tipo_selected)) +
-                                                       '%{y:.1f}<extra></extra>',
-                                         showlegend=True,
-                                         fillcolor=f"rgba{(*hex_to_rgb(tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][0]), 0.3)}",
-                                         line_color=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][1],
-                                         ),
-                              row=(i // 2 + (i % 2 > 0)),
-                              col=(i % 2) + 2 * ((i + 1) % 2),
-                              )
-                fig.add_annotation(
-                    x=df[df["Ciudad"] == ciudad].loc[df[tipo_original[tipo_translated.index(tipo_selected)] + '_avg7'] == max_tipo_avg7]['Fecha'].iloc[-1],
-                    y=max_tipo_avg7,
-                    ax=df[df["Ciudad"] == ciudad].loc[df[tipo_original[tipo_translated.index(tipo_selected)] + '_avg7'] == max_tipo_avg7]['Fecha'].iloc[
-                           -1] - pd.Timedelta((df['Fecha'].max() - df['Fecha'].min()) / 10),
-                    ay=max_tipo_avg7,
-                    xref='x' + (str(i) if i != 1 else ''),
-                    yref='y' + (str(i) if i != 1 else ''),
-                    axref='x' + (str(i) if i != 1 else ''),
-                    ayref='y' + (str(i) if i != 1 else ''),
-                    text= tipo_translated[0] + _("<br>Promedio<br>7 días"),
-                    font=dict(size=10,
-                              color=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][1]),
-                    xshift=-3,
-                    yshift=-2,
-                    arrowcolor=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][1],
-                    arrowwidth=2,
-                    showarrow=True,
-                    arrowhead=0,
-                    row=(i // 2 + (i % 2 > 0)),
-                    col=(i % 2) + 2 * ((i + 1) % 2),
-                    )
-
-            if len(multi_ciudades_0) == 1:
-                fig.update_xaxes(domain=[0, 1])
-                fig.layout.annotations[0].update(x=0.5)
-
-            i = i + 1
-        if len(multi_ciudades_0) == 1:
-            fig_height = 600
-            fig_width = 850
-            titlex = 0.5
-        elif len(multi_ciudades_0) <= 4:
-            fig_height = 600
-            fig_width = 1150
-            titlex = 0.5
-
-        elif len(multi_ciudades_0) <= 8:
-            fig_height = 730
-            fig_width = 1150
-            titlex = 0.5
+        if not multi_ciudades_0:
+            pass
         else:
-            fig_height = 1000
-            fig_width = 1150
-            titlex = 0.5
-        fig.update_layout(
-            title=tipo_selected + _(""" por departamento<br>Colocar el mouse sobre cada gráfico para obtener info. adicional."""),
-            title_x=titlex,
-            height=fig_height,
-            width=fig_width,
-            # autosize=True,
-            showlegend=False,
-            font={'color': 'black'}
-            )
-        fig.update_xaxes(title=_("Fecha"),
-                         title_standoff=4,
-                         tickformat='%m-%Y',
-                         nticks=10,
-                         ticks="outside",
-                         tickcolor='black',
-                         )
-        fig.update_yaxes(title=tipo_selected,
-                         title_standoff=4,
-                         )
-        st.plotly_chart(fig)
+                
+            fig = make_subplots(rows=(len(multi_ciudades_0) // 2 + (len(multi_ciudades_0) % 2 > 0)),
+                                cols=2,
+                                subplot_titles=['temp_subtitle' for ciudad in np.arange(len(multi_ciudades_0))],
+                                print_grid=True,
+                                )
+            i = 1
+
+            for ciudad in multi_ciudades_0:
+
+                fig.add_trace(go.Bar(x=df[df["Ciudad"] == ciudad].Fecha,
+                                    y=df[df["Ciudad"] == ciudad][tipo_original[tipo_translated.index(tipo_selected)]],
+                                    name=ciudad,
+                                    hovertemplate=ciudad + _('<br>Fecha: %{x:%d}<br>') +
+                                                f'{tipo_translated[tipo_translated.index(tipo_selected)]}: ' +
+                                                '%{y:.1f}<extra></extra>',
+                                    showlegend=True,
+                                    marker_color=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][0],
+                                    ),
+                            row=(i // 2 + (i % 2 > 0)),
+                            col=(i % 2) + 2 * ((i + 1) % 2)
+                            )
+                fig.layout.annotations[i - 1]['text'] = ciudad
+                fig.layout.annotations[i - 1]['font'] = {'size': 20, 'color': 'black'}
+                if [tipo_translated[tipo_translated.index(tipo_selected)]][0] in tipo_translated[:3]:
+                    max_tipo_avg7 = df[df["Ciudad"] == ciudad][tipo_original[tipo_translated.index(tipo_selected)]+ '_avg7'].max()
+                    fig.add_trace(go.Scatter(x=df[df["Ciudad"] == ciudad].Fecha,
+                                            y=df[df["Ciudad"] == ciudad][tipo_original[tipo_translated.index(tipo_selected)] + '_avg7'],
+                                            mode='lines',
+                                            name=ciudad,
+                                            fill='tozeroy',
+                                            hovertemplate=ciudad + _('<br>Fecha: %{x:%d-%m-%Y}<br>') +
+                                                        _('Promedio {}: ').format(tipo_translated.index(tipo_selected)) +
+                                                        '%{y:.1f}<extra></extra>',
+                                            showlegend=True,
+                                            fillcolor=f"rgba{(*hex_to_rgb(tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][0]), 0.3)}",
+                                            line_color=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][1],
+                                            ),
+                                row=(i // 2 + (i % 2 > 0)),
+                                col=(i % 2) + 2 * ((i + 1) % 2),
+                                )
+                    fig.add_annotation(
+                        x=df[df["Ciudad"] == ciudad].loc[df[tipo_original[tipo_translated.index(tipo_selected)] + '_avg7'] == max_tipo_avg7]['Fecha'].iloc[-1],
+                        y=max_tipo_avg7,
+                        ax=df[df["Ciudad"] == ciudad].loc[df[tipo_original[tipo_translated.index(tipo_selected)] + '_avg7'] == max_tipo_avg7]['Fecha'].iloc[
+                            -1] - pd.Timedelta((df['Fecha'].max() - df['Fecha'].min()) / 10),
+                        ay=max_tipo_avg7,
+                        xref='x' + (str(i) if i != 1 else ''),
+                        yref='y' + (str(i) if i != 1 else ''),
+                        axref='x' + (str(i) if i != 1 else ''),
+                        ayref='y' + (str(i) if i != 1 else ''),
+                        text= tipo_translated[0] + _("<br>Promedio<br>7 días"),
+                        font=dict(size=10,
+                                color=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][1]),
+                        xshift=-3,
+                        yshift=-2,
+                        arrowcolor=tipo_color_dict[tipo_original[tipo_translated.index(tipo_selected)]][1],
+                        arrowwidth=2,
+                        showarrow=True,
+                        arrowhead=0,
+                        row=(i // 2 + (i % 2 > 0)),
+                        col=(i % 2) + 2 * ((i + 1) % 2),
+                        )
+
+                if len(multi_ciudades_0) == 1:
+                    fig.update_xaxes(domain=[0, 1])
+                    fig.layout.annotations[0].update(x=0.5)
+
+                i = i + 1
+            if len(multi_ciudades_0) == 1:
+                fig_height = 600
+                fig_width = 850
+                titlex = 0.5
+            elif len(multi_ciudades_0) <= 4:
+                fig_height = 600
+                fig_width = 1150
+                titlex = 0.5
+
+            elif len(multi_ciudades_0) <= 8:
+                fig_height = 730
+                fig_width = 1150
+                titlex = 0.5
+            else:
+                fig_height = 1000
+                fig_width = 1150
+                titlex = 0.5
+            fig.update_layout(
+                title=tipo_selected + _(""" por departamento<br>Colocar el mouse sobre cada gráfico para obtener info. adicional."""),
+                title_x=titlex,
+                height=fig_height,
+                width=fig_width,
+                # autosize=True,
+                showlegend=False,
+                font={'color': 'black'}
+                )
+            fig.update_xaxes(title=_("Fecha"),
+                            title_standoff=4,
+                            tickformat='%m-%Y',
+                            nticks=10,
+                            ticks="outside",
+                            tickcolor='black',
+                            )
+            fig.update_yaxes(title=tipo_selected,
+                            title_standoff=4,
+                            )
+            st.plotly_chart(fig)
 
     if sidebar_plot == graph_time_types[1]: # Gráfico único, All-in one Chart
         col1, col2 = st.columns(2)
