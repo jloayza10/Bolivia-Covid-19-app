@@ -1,10 +1,10 @@
 name: process_daily_data_Bolivia
     
 on:
-  #workflow_dispatch:
-  #schedule:
-    #- cron: "0 14 * * *" # UTC time
-  push
+  workflow_run:
+    workflows: ["Update"]
+    types:
+      - completed
 jobs:
     build:
       runs-on: ubuntu-latest
