@@ -9,10 +9,9 @@ csv_names = ["confirmados_diarios.csv","decesos_diarios.csv",
              "recuperados_diarios.csv","confirmados_acumulados.csv",
              "activos_acumulados.csv","decesos_acumulados.csv",
              "recuperados_acumulados.csv"]
-#url_base = "https://raw.githubusercontent.com/sociedatos/covid19-bo-casos_por_departamento/master/"
 df_names = ["df_daily_pos","df_daily_deaths","df_daily_recup","df_acc_pos","df_acc_act","df_acc_deaths","df_acc_recup"]
 ciudades = ['Chuquisaca','La Paz','Cochabamba','Oruro','Potosi','Tarija','Santa Cruz','Beni','Pando', 'Bolivia']
-df_dict = {}
+
 tipos = ['Positivos', 'Muertes', 'Recuperados','Total Positivos','Total Activos',
                         'Total Muertes','Total Recuperados']
 data_poblacion = {'Ciudad':['Chuquisaca','La Paz','Cochabamba','Oruro','Potosi',
@@ -20,6 +19,8 @@ data_poblacion = {'Ciudad':['Chuquisaca','La Paz','Cochabamba','Oruro','Potosi',
                   'Poblacion':[654000, 3023800, 2086900, 548500, 907700, 591800, 3363400, 507100,
                      158700, 11842000]}
 df_poblacion = pd.DataFrame(data_poblacion) # country and departamento population in 2022
+
+df_dict = {}
 
 # Function to read the data
 def read_data(csv,name):

@@ -15,7 +15,7 @@ _ = gettext.gettext
 st.set_page_config(page_title="Covid-19 Bolivia Dashboard",layout='wide')
 #locale.setlocale(locale.LC_ALL, 'es_ES.utf8')
 
-
+#Selectbox for language selection
 language = st.sidebar.selectbox('Escoger idioma / Select language', ['Español','English'])
 try:
   localizator = gettext.translation('base', localedir='locales', languages=[language])
@@ -31,21 +31,23 @@ def f(s):
     frame = currentframe().f_back
     return eval(f"f'{s}'", frame.f_locals, frame.f_globals)
 
+#Data read
 
 df = pd.read_pickle(r'./Step_1-Parse/data/df_covid_Bolivia.pickle')
 df_monthly_mean = pd.read_pickle(r'./Step_1-Parse/data/df_monthly_mean.pickle')
 df_weekly_mean = pd.read_pickle(r'./Step_1-Parse/data/df_weekly_mean.pickle')
 Bolivia_deptos = json.load(open('./Step_0-Raw/data/departamentos_Bolivia.geojson', 'r'))
+
+
+#List variables definition
 ciudades = ['Beni', 'Chuquisaca', 'Cochabamba', 'La Paz', 'Oruro', 'Pando', 'Potosi', 'Santa Cruz',
             'Tarija', 'Bolivia']
-
-
-tipo10 = _('Total Activos')
-
 tipo_original = ['Positivos', 'Muertes', 'Recuperados', 'Total Positivos', 'Total Muertes', 'Total Recuperados',
-         'Positivos por 100k hab.', 'Muertes por 100k hab.', 'Recuperados por 100k hab.']  # 'Total Activos',
+         'Positivos por 100k hab.', 'Muertes por 100k hab.', 'Recuperados por 100k hab.']  
+
+#Translatable strings and variables
 tipo_translated = [_('Positivos'), _('Muertes'), _('Recuperados'), _('Total Positivos'), _('Total Muertes'), _('Total Recuperados'),
-         _('Positivos por 100k hab.'), _('Muertes por 100k hab.'), _('Recuperados por 100k hab.')]  # 'Total Activos',
+         _('Positivos por 100k hab.'), _('Muertes por 100k hab.'), _('Recuperados por 100k hab.')]  
 
 tiempo1 = _('Por mes')
 tiempo2 = _('Por semana')
@@ -76,11 +78,11 @@ map_types = [map_types1, map_types2]
 mapbox_styles = ["open-street-map", "carto-positron", "carto-darkmatter", "stamen-terrain",
                  "stamen-toner", "stamen-watercolor"]
 
+#Colors dictionary for all plots depending on the selected metric 
 tipo_color_dict = {tipo_original[0]: ['#55BCC9', '#659DBD', '#05386B', '#97CAEF', '#240090', '#190061'],
                    tipo_original[1]: ['#111111', '#474853'],
                    tipo_original[2]: ['#AFD275', '#8EE4AF'],
                    tipo_original[3]: ['#05386B', '#659DBD'],
-                   tipo10 : ['#8E8268', '#8E8268'],
                    tipo_original[4]: ['#111111', '#474853'],
                    tipo_original[5]: ['#379683', '#8EE4AF'],
                    tipo_original[6]: ['#55BCC9', '#97CAEF'],
@@ -88,13 +90,14 @@ tipo_color_dict = {tipo_original[0]: ['#55BCC9', '#659DBD', '#05386B', '#97CAEF'
                    tipo_original[8]: ['#AFD275', '#AFD275']
                    }
 
-
+#Helper function
 def hex_to_rgb(hex_color: str) -> tuple:
     hex_color = hex_color.lstrip("#")
     if len(hex_color) == 3:
         hex_color = hex_color * 2
     return int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
 
+#Plotting functions
 
 def scatter_trace(figure,dataframe,var,ciudad,hover_str):
     figure.add_trace(go.Scatter(x=dataframe[dataframe["Ciudad"] == ciudad].Fecha,
@@ -103,8 +106,7 @@ def scatter_trace(figure,dataframe,var,ciudad,hover_str):
                                 hovertemplate=ciudad + _('<br>Fecha: %{x:%d}<br>') +
                                            f'{hover_str}: ' +
                                            '%{y:.1f}<extra></extra>',
-                                showlegend=True,
-                                #marker_color=tipo_color_dict[multi_tipos_1][0],
+                                showlegend=True
                                 )
                      )
 
@@ -136,6 +138,20 @@ def bar_trace_1(figure,dataframe,var,ciudad):
                             width=0.3,
                             )
                      )
+    
+def plot_scatter_M_mean(figure,var,ciudad,hover_str):
+    figure.add_trace(go.Scatter(x=df_monthly_mean[df_monthly_mean["Ciudad"]==ciudad].Fecha.dt.strftime('%m-%Y'),
+                                y=df_monthly_mean[df_monthly_mean["Ciudad"]==ciudad][var],
+                                mode='lines+markers',
+                                name=ciudad,
+                                hovertemplate=ciudad + '<br>Mes-Año: %{x:%d}<br>' +
+                                           '{}: '.format(hover_str) +
+                                           '%{y:.1f}<extra></extra>',
+                                showlegend=True,
+                                )
+                     )
+
+#Plot layout modification functions
 def update_plot_bar(var):
     fig.update_layout(title=var + _(' por departamento seleccionado'),
                       title_x=0.5,
@@ -154,18 +170,6 @@ def update_plot_bar(var):
     fig.update_yaxes(title='',
                      ticks="outside",
                      tickcolor='black',
-                     )
-
-def plot_scatter_M_mean(figure,var,ciudad,hover_str):
-    figure.add_trace(go.Scatter(x=df_monthly_mean[df_monthly_mean["Ciudad"]==ciudad].Fecha.dt.strftime('%m-%Y'),
-                                y=df_monthly_mean[df_monthly_mean["Ciudad"]==ciudad][var],
-                                mode='lines+markers',
-                                name=ciudad,
-                                hovertemplate=ciudad + '<br>Mes-Año: %{x:%d}<br>' +
-                                           '{}: '.format(hover_str) +
-                                           '%{y:.1f}<extra></extra>',
-                                showlegend=True,
-                                )
                      )
 
 def update_plot(hover_str,title_str):
@@ -191,18 +195,20 @@ def update_plot(hover_str,title_str):
                      zeroline=True,
                      rangemode="tozero",
                      )
+    
+#Get most recent date
 Fecha_max = df['Fecha'].max().strftime('%d-%m-%Y')
 
 
-#st.title("Visualización Covid-19 en Bolivia")
+
 st.markdown(_("<h1 style='text-align: center; color: black;'>Visualización Covid-19 en Bolivia</h1>"), unsafe_allow_html=True)
 st.caption(f(_('Fecha de la última actualización de datos: {Fecha_max}')))
 st.sidebar.title(_("Opciones de visualizaciones"))
-#st.sidebar.header("Opciones de gráficos")
+
 
 sidebar_type = st.sidebar.selectbox("", graph_types)
 
-if sidebar_type == graph_types[0]: # Tablas de Resumen
+if sidebar_type == graph_types[0]: # Tablas de Resumen/Data Tables
     col1, col2 = st.columns(2)
     with col1:
         with st.expander(_("Click para escoger los departamentos")):
@@ -241,7 +247,7 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
                 multi_tipos_2.append(tipo_original[index])
             
    
-    for i, multi_tipo in enumerate(multi_tipos_2):
+    for i, multi_tipo in enumerate(multi_tipos_2): #i helps select onwhich column to show the tables
 
 
         if (i % 2) == 0:
@@ -256,7 +262,6 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
                                     ]
                 fig = ff.create_table(df_table.round(2))
                 col1.subheader("{}\n {}: {}".format(_(multi_tipo), _("Fecha"), Fecha_max))
-                #col1.subheader(multi_tipo + '\n Fecha: {}'.format(Fecha_max)) # + f"\n Fecha: {Fecha_max}") (f(_('Fecha de la última actualización de datos: {Fecha_max}')))
                 st.plotly_chart(fig, use_container_width=True)
         if (i % 2) == 1:
             with col2:
@@ -271,10 +276,9 @@ if sidebar_type == graph_types[0]: # Tablas de Resumen
                                     ]
                 fig = ff.create_table(df_table.round(2))
                 col2.subheader("{}\n {}: {}".format(_(multi_tipo), _("Fecha"), Fecha_max))
-                #col2.subheader(multi_tipo + '\n Fecha: {}'.format(Fecha_max)) #+ f"\n Fecha: {Fecha_max}")
                 st.plotly_chart(fig, use_container_width=True)
 
-if sidebar_type == graph_types[1]: # Gráficos por fecha
+if sidebar_type == graph_types[1]: # Gráficos por fecha / Time Charts
     sidebar_plot = st.sidebar.selectbox(_("Cómo ver los gráficos"),
                                         graph_time_types)
     if sidebar_plot == graph_time_types[0]:# Gráficos individuales / Individual charts
@@ -390,7 +394,6 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
                 title_x=titlex,
                 height=fig_height,
                 width=fig_width,
-                # autosize=True,
                 showlegend=False,
                 font={'color': 'black'}
                 )
@@ -406,7 +409,7 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
                             )
             st.plotly_chart(fig)
 
-    if sidebar_plot == graph_time_types[1]: # Gráfico único, All-in one Chart
+    if sidebar_plot == graph_time_types[1]: # Gráfico único / All-in one Chart
         col1, col2 = st.columns(2)
         with col1:
             with st.expander(_("Click para escoger los departamentos")):
@@ -484,12 +487,12 @@ if sidebar_type == graph_types[1]: # Gráficos por fecha
             st.plotly_chart(fig)
 
 
-if sidebar_type == graph_types[2]: # Mapa
+if sidebar_type == graph_types[2]: # Mapa / Map
 
     with st.expander(_("Seleccionar tipo de mapa")):
         map_type = st.selectbox("",map_types)
     col1, col2 = st.columns(2)
-    if map_type == map_types[0]:
+    if map_type == map_types[0]: #Por Fecha / By date
         with col1:
             with st.expander(_("Seleccionar período temporal")):
                 selectbox_tiempo = st.selectbox("", tiempo, key=3)
@@ -516,7 +519,7 @@ if sidebar_type == graph_types[2]: # Mapa
                                        title=title_str
                                        )
 
-            # print("plotly express hovertemplate:", fig.data[0].hovertemplate)
+            # print("plotly express hovertemplate:", fig.data[0].hovertemplate) #for debugging purposes
             fig.update_traces(
                 hovertemplate=_('<b>%{hovertext}</b><br>Mes: %{customdata[0]}<br>Positivos: %{z:.1f}<br>Muertes: %{customdata[2]:.1f}<br>Recuperados: %{customdata[3]:.1f}'))
             for f in fig.frames:
@@ -610,7 +613,7 @@ if sidebar_type == graph_types[2]: # Mapa
 
             st.plotly_chart(fig)
 
-    if map_type == map_types[1]:
+    if map_type == map_types[1]: #Mapa actual / Current map
         with col1:
             with st.expander(_("Seleccionar variable")):
                 selectbox_tipos = st.selectbox("", tipo_translated, key=1)
