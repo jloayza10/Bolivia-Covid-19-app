@@ -28,13 +28,15 @@ def get_data(json_data):
     """
 
     headers = {
-        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:98.0) Gecko/20100101 Firefox/98.0',
+        'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/110.0',
         'Accept': 'application/json, text/plain, */*',
         'Accept-Language': 'en-US,en;q=0.5',
+        'Content-Type': 'application/json',
         'encoding': 'null',
         'Origin': 'https://lookerstudio.google.com',
+        'Alt-Used': 'lookerstudio.google.com',
         'Connection': 'keep-alive',
-        'Referer': 'https://datastudio.google.com/reporting/92796894-acf3-4ab7-9395-20655de351f7',
+        'Referer': 'https://lookerstudio.google.com/reporting/92796894-acf3-4ab7-9395-20655de351f7/page/p_zdtrnwnguc',
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'same-origin',
@@ -43,7 +45,7 @@ def get_data(json_data):
     }
 
     params = {
-        'appVersion': '20220707_00020038',
+        'appVersion': '20230302_00020115',
     }
 
     response = requests.post('https://lookerstudio.google.com/batchedDataV2', params=params, headers=headers, json=json_data)
